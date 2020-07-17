@@ -1,28 +1,7 @@
 import React from 'react'
-import {BrowserRouter as Router} from 'react-router-dom' 
-import Navbar from './components/Navbar.js'
-import MainContainer from './container/MainContainer'
-import './App.css'
 
-function App() {
-  return (
-    <Router>
-      <div className="App">
-        <div className= "nav-bar">
-          <Navbar/>
-        </div>
-
-        <div className='main-container'>
-          <MainContainer/>
-        </div>
-      </div>
-    </Router>
-  )
-}
-
-export default App
-
-// state = {
+class CategoryContainer extends React.Component {
+    // state = {
   //   products: []
   // }
 
@@ -50,7 +29,7 @@ export default App
   //   }
   // }
 
-  // ender() {
+  render() {
     // let arrayOfComponents = this.state.products.map((product) => {
     //   return (
     //     <li key={product.id}>
@@ -60,18 +39,7 @@ export default App
     //     </li>
     //   )
     // })
+  }
+}
 
-    // return (
-    //   <div className="App">
-    //     {/* <Nav />  */}
-    //     <Switch> 
-    //       <Route path="/signup" component={SignUp} />
-    //       <Route path="/login" component={Login} />
-    //       <Route path="/" exact component={Home} />
-          /* <Route path="/characters/:slug" render={this.decideWhichCharactersToRender} />
-          <Route path="/" exact component={Home} />
-          <Route component={NotFound} /> */
-  //       </Switch>
-  //     </div>
-  //   )
-  // }
+export default CategoryContainer
