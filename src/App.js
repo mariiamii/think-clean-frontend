@@ -71,7 +71,7 @@ class App extends React.Component {
     }
   }
 
-  renderProfile = (routerProps) => {
+  renderFavorites = (routerProps) => {
     return <Favorites user={this.state.user}/>
   }
 
@@ -99,9 +99,9 @@ class App extends React.Component {
         <Switch>
           <Route path="/login" render={ this.renderForm } />
           <Route path="/register" render={ this.renderForm } />
-          <Route path="/profile" render={ this.renderProfile } />
+          <Route path="/favorites" render={ this.renderFavorites } />
           <Route path="/" exact component={this.renderHome} />
-          <Route render={ () => <p>Page not Found</p> } />
+          <Route render={ () => <p>Sorry! Page not Found.</p> } />
         </Switch>
       </div>
     )

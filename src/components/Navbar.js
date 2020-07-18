@@ -23,7 +23,7 @@ const NavBar = (props) => {
             <NavLink to="/all">View All</NavLink>
           </li>
           <li>
-            <NavLink to="/profile">Profile</NavLink>
+            <NavLink to="/favorites">Favorites</NavLink>
           </li>
         </ul>
         :
