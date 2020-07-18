@@ -6,9 +6,11 @@ class NewProductForm extends Component {
     product_name: "",
     description: "",
     image_url: "",
-    category: "",
+    category: "Skincare",
     website: ""
   }
+
+  handleChange = event => {this.setState({ [event.target.name]: event.target.value })}
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -21,21 +23,22 @@ class NewProductForm extends Component {
       body: JSON.stringify(this.state)
     })
     .then(resp => resp.json())
-    .then((newlyCreatedProduct) => {
-      this.props.addNewProduct(newlyCreatedProduct)
-      this.setState({
-        brand_name: ""
-      })
-    })
+    .then(console.log)
+    // .then((newlyCreatedProduct) => {
+    //   this.props.addNewProduct(newlyCreatedProduct)
+    //   // this.setState({
+    //   //   brand_name: ""
+    //   // })
+    // })
   }
 
-  handleChange = (event) => {
-    let {brand_name, value} = event.target
+  // handleChange = (event) => {
+  //   let {brand_name, value} = event.target
 
-    this.setState({
-      [brand_name]: value
-    })
-  }
+  //   this.setState({
+  //     [brand_name]: value
+  //   })
+  // }
 
   render() {
     return (
@@ -44,19 +47,16 @@ class NewProductForm extends Component {
         <form onSubmit={this.handleSubmit}>
 
           <label htmlFor='brand-name'>Brand Name:</label>
-          <input type="text" autoComplete="off" name="brand-name" value={this.state.brand_name} onChange={this.handleChange} />
+          <input type="text" autoComplete="off" name="brand_name" value={this.state.brand_name} onChange={this.handleChange} />
 
           <label htmlFor='product-name'>Product Name:</label>
-          <input type="text" autoComplete="off" name="product-name" value={this.state.product_name} onChange={this.handleChange} />
+          <input type="text" autoComplete="off" name="product_name" value={this.state.product_name} onChange={this.handleChange} />
 
           <label htmlFor='description'>Description:</label>
           <input type="text" autoComplete="off" name="description" value={this.state.description} onChange={this.handleChange} />
 
           <label htmlFor='image'>Image:</label>
-          <input type="ulr" autoComplete="off" name="image-url" value={this.state.image_url} onChange={this.handleChange} />
-
-          {/* <label>Category:</label>
-          <input type="text" autoComplete="off" name="category" value={this.state.category} onChange={this.handleChange} /> */}
+          <input type="ulr" autoComplete="off" name="image_url" value={this.state.image_url} onChange={this.handleChange} />
 
           <label htmlFor='category'>Category:</label>
           <select name='category' value={this.state.category} onChange={this.handleChange}>

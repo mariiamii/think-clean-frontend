@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 import {Switch, Route} from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
 import Form from './components/Form'
 import Navbar from './components/Navbar'
 import Home from './components/Home'
-import ProfileContainer from './ProfileComponents/ProfileContainer'
-import {withRouter} from 'react-router-dom'
+import ProfileContainer from './components/ProfileContainer'
 
 class App extends React.Component {
   state = {
@@ -47,7 +47,7 @@ class App extends React.Component {
       this.setState({
         user: resp
       }, () => {
-        this.props.history.push("/profile")
+        this.props.history.push("/")
       })
     } else {
       alert(resp.message)
@@ -55,8 +55,8 @@ class App extends React.Component {
   }
 
   renderForm = (routerProps) => {
-    console.log("made it to render form")
-    console.log(routerProps)
+    // console.log("made it to render form")
+    // console.log(routerProps)
 
     if (routerProps.location.pathname === "/login"){
       return <Form
@@ -65,7 +65,7 @@ class App extends React.Component {
       />
     } else if (routerProps.location.pathname === "/register") {
       return <Form
-        formName="Register Form"
+        formName="Registration Form"
         handleSubmit={this.handleRegisterSubmit}
       />
     }
@@ -75,17 +75,22 @@ class App extends React.Component {
     return <ProfileContainer user={this.state.user}/>
   }
 
-  addNewProduct = (newProduct) => {
-    let copyOfProducts = [...this.state.user.products, newProduct]
-    let copyOfUser = {
-      ...this.state.user,
-      products: copyOfProducts
-    }
-
-    this.setState({
-      user: copyOfUser
-    })
+  renderHome = (routerProps) => {
+    return <Home user={this.state.user}/>
   }
+
+  //products associated to a user
+  // addNewProduct = (newProduct) => {
+  //   let copyOfUserProducts = [...this.state.user.products, newProduct]
+  //   let copyOfUser = {
+  //     ...this.state.user,
+  //     products: copyOfUserProducts
+  //   }
+
+  //   this.setState({
+  //     user: copyOfUser
+  //   })
+  // }
 
   render() {
     return (
@@ -95,7 +100,7 @@ class App extends React.Component {
           <Route path="/login" render={ this.renderForm } />
           <Route path="/register" render={ this.renderForm } />
           <Route path="/profile" render={ this.renderProfile } />
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact component={this.renderHome} />
           <Route render={ () => <p>Page not Found</p> } />
         </Switch>
       </div>
@@ -106,82 +111,55 @@ class App extends React.Component {
 export default withRouter(App)
 
 /******************************************************/
-// //WORKING
-// import React from 'react'
-// import {BrowserRouter as Router} from 'react-router-dom' 
-// import Navbar from './components/Navbar.js'
-// import MainContainer from './container/MainContainer'
-// import './App.css'
-
-// function App() {
-//   return (
-//     <Router>
-//       <div className="App">
-//         <div className= "nav-bar">
-//           <Navbar/>
-//         </div>
-
-//         <div className='main-container'>
-//           <MainContainer/>
-//         </div>
-//       </div>
-//     </Router>
-//   )
+// state = {
+//   products: []
 // }
 
-// export default App
+// componentDidMount() {
+//   fetch("http://localhost:3000/products")
+//   .then(resp => resp.json())
+//   .then((arrayOfProducts) => {
+//     this.setState({
+//       products: arrayOfProducts
+//     })
+//   })
+// }
 
-/******************************************************/
-// state = {
-  //   products: []
-  // }
+// decideWhichProductToRender = (routerProps) => {
+//   let theThingThatTheUserTypedInTheURL = routerProps.match.params.slug
 
-  // componentDidMount() {
-  //   fetch("http://localhost:3000/products")
-  //   .then(resp => resp.json())
-  //   .then((arrayOfProducts) => {
-  //     this.setState({
-  //       products: arrayOfProducts
-  //     })
-  //   })
-  // }
+//   let foundProduct = this.state.product.find((product) => {
+//     return product.slug === theThingThatTheUserTypedInTheURL
+//   })
 
-  // decideWhichProductToRender = (routerProps) => {
-  //   let theThingThatTheUserTypedInTheURL = routerProps.match.params.slug
+//   if (foundProduct) {
+//     return <Product name={foundProduct.name} gif={foundProduct.gif} />
+//   } else {
+//     return <NotFound />
+//   }
+// }
 
-  //   let foundProduct = this.state.product.find((product) => {
-  //     return product.slug === theThingThatTheUserTypedInTheURL
-  //   })
+// render() {
+//   let arrayOfComponents = this.state.products.map((product) => {
+//     return (
+//       <li key={product.id}>
+//         <NavLink to={`/products/${product.slug}`}>
+//           {product.name}
+//         </NavLink>
+//       </li>
+//     )
+//   })
 
-  //   if (foundProduct) {
-  //     return <Product name={foundProduct.name} gif={foundProduct.gif} />
-  //   } else {
-  //     return <NotFound />
-  //   }
-  // }
-
-  // ender() {
-    // let arrayOfComponents = this.state.products.map((product) => {
-    //   return (
-    //     <li key={product.id}>
-    //       <NavLink to={`/products/${product.slug}`}>
-    //         {product.name}
-    //       </NavLink>
-    //     </li>
-    //   )
-    // })
-
-    // return (
-    //   <div className="App">
-    //     {/* <Nav />  */}
-    //     <Switch> 
-    //       <Route path="/signup" component={SignUp} />
-    //       <Route path="/login" component={Login} />
-    //       <Route path="/" exact component={Home} />
-          /* <Route path="/characters/:slug" render={this.decideWhichCharactersToRender} />
-          <Route path="/" exact component={Home} />
-          <Route component={NotFound} /> */
-  //       </Switch>
-  //     </div>
-  //   )
-  // }
+//   return (
+//     <div className="App">
+//       <Switch> 
+//         <Route path="/signup" component={SignUp} />
+//         <Route path="/login" component={Login} />
+//         <Route path="/" exact component={Home} />
+//         /* <Route path="/characters/:slug" render={this.decideWhichCharactersToRender} />
+//         <Route path="/" exact component={Home} />
+//         <Route component={NotFound} /> */
+//         </Switch>
+//     </div>
+//   )
+// }

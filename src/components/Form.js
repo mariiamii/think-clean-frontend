@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-class Form extends Component {
+class Form extends React.Component {
   state = {
+    name: "",
     username: "",
     password: ""
   }
 
-  handleSubmit = (e) => {
-    e.preventDefault()
+  handleSubmit = (event) => {
+    event.preventDefault()
     this.props.handleSubmit(this.state)
   }
 
-  handleChange = (e) => {
-    let {name, value} = e.target
+  handleChange = (event) => {
+    let {name, value} = event.target
     this.setState({
       [name]: value
     })
@@ -20,15 +21,21 @@ class Form extends Component {
 
   render() {
     let {formName} = this.props
-    let {username, password} = this.state
+    let {name, username, password} = this.state
 
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>{formName}</h1>
-        <label htmlFor="username">Username:</label>
+
+        <label htmlFor="full-name">Full Name: </label>
+        <input type="text" autoComplete="off" name="name" value={name} onChange={this.handleChange}/>
+
+        <label htmlFor="username">Username: </label>
         <input type="text" autoComplete="off" name="username" value={username} onChange={this.handleChange}/>
-        <label htmlFor="password">Password:</label>
+
+        <label htmlFor="password">Password: </label>
         <input type="password" autoComplete="off" name="password" value={password} onChange={this.handleChange}/>
+
         <input type="submit" value="Submit"/>
       </form>
     )
