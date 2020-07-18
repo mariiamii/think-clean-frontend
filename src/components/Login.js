@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Login extends Component {
+class Login extends React.Component {
   state = {
     username: '',
     password: ''

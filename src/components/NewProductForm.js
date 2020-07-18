@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class NewProductForm extends Component {
+class NewProductForm extends React.Component {
   state = {
     brand_name: "",
     product_name: "",

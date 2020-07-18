@@ -2,9 +2,9 @@ import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
 import Form from './components/Form'
-import Navbar from './components/Navbar'
+import NavBar from './components/NavBar'
 import Home from './components/Home'
-import ProfileContainer from './components/ProfileContainer'
+import Favorites from './components/Favorites'
 
 class App extends React.Component {
   state = {
@@ -72,7 +72,7 @@ class App extends React.Component {
   }
 
   renderProfile = (routerProps) => {
-    return <ProfileContainer user={this.state.user}/>
+    return <Favorites user={this.state.user}/>
   }
 
   renderHome = (routerProps) => {
@@ -95,7 +95,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <Navbar user={this.state.user} />
+        <NavBar user={this.state.user} />
         <Switch>
           <Route path="/login" render={ this.renderForm } />
           <Route path="/register" render={ this.renderForm } />
