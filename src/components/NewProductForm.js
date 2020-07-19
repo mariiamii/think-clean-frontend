@@ -32,14 +32,6 @@ class NewProductForm extends React.Component {
     // })
   }
 
-  // handleChange = (event) => {
-  //   let {brand_name, value} = event.target
-
-  //   this.setState({
-  //     [brand_name]: value
-  //   })
-  // }
-
   render() {
     return (
       <section>
