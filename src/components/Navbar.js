@@ -11,9 +11,6 @@ const NavBar = (props) => {
             <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/products">All Products</NavLink>
-          </li>
-          <li>
             <NavLink to="/skincare">Skincare</NavLink>
           </li>
           <li>
@@ -21,6 +18,12 @@ const NavBar = (props) => {
           </li>
           <li>
             <NavLink to="/hair">Hair Care</NavLink>
+          </li>
+          <li>
+            <NavLink to="/products">All Products</NavLink>
+          </li>
+          <li>
+            <NavLink to="/add">Add New Product</NavLink>
           </li>
           <li>
             <NavLink to="/favorites">Favorites</NavLink>

@@ -6,14 +6,16 @@ import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Favorites from './components/Favorites'
 import AllProducts from './components/AllProducts'
+import NewProductForm from './components/NewProductForm'
 
 class App extends React.Component {
   state = {
     products: [],
+    searchTerm: '',
     user: {
       id: 0,
-      name: "",
-      username: "",
+      name: '',
+      username: '',
       products: []
     }
   }
@@ -25,11 +27,11 @@ class App extends React.Component {
   }
 
   handleLoginSubmit = (userInfo) => {
-    console.log("Login form has been submitted")
-    fetch("http://localhost:3000/users/login", {
-      method: "POST",
+    console.log('Login form has been submitted')
+    fetch('http://localhost:3000/users/login', {
+      method: 'POST',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       },
       body: JSON.stringify(userInfo)
     })
@@ -38,11 +40,11 @@ class App extends React.Component {
   }
 
   handleRegisterSubmit = (userInfo) => {
-    console.log("Register form has been submitted")
-    fetch("http://localhost:3000/users", {
-      method: "POST",
+    console.log('Register form has been submitted')
+    fetch('http://localhost:3000/users', {
+      method: 'POST',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       },
       body: JSON.stringify(userInfo)
     })
@@ -55,7 +57,7 @@ class App extends React.Component {
       this.setState({
         user: resp
       }, () => {
-        this.props.history.push("/")
+        this.props.history.push('/')
       })
     } else {
       alert(resp.message)
@@ -63,17 +65,17 @@ class App extends React.Component {
   }
 
   renderForm = (routerProps) => {
-    // console.log("made it to render form")
+    // console.log('made it to render form')
     // console.log(routerProps)
 
-    if (routerProps.location.pathname === "/login"){
+    if (routerProps.location.pathname === '/login'){
       return <Form
-        formName="Login Form"
+        formName='Login Form'
         handleSubmit={this.handleLoginSubmit}
       />
-    } else if (routerProps.location.pathname === "/register") {
+    } else if (routerProps.location.pathname === '/register') {
       return <Form
-        formName="Registration Form"
+        formName='Registration Form'
         handleSubmit={this.handleRegisterSubmit}
       />
     }
@@ -91,6 +93,10 @@ class App extends React.Component {
     return <AllProducts products={this.state.products}/>
   }
 
+  addNewProduct = (newProduct) => {
+    this.setState({ products: [...this.state.products, newProduct] })
+  }
+
   //adding products associated to a user
   // addNewProduct = (newProduct) => {
   //   let copyOfUserProducts = [...this.state.user.products, newProduct]
@@ -106,14 +112,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="App">
+      <div className='App'>
         <NavBar user={this.state.user} />
         <Switch>
-          <Route path="/login" render={ this.renderForm } />
-          <Route path="/register" render={ this.renderForm } />
-          <Route path="/products" render={ this.renderProducts } />
-          <Route path="/favorites" render={ this.renderFavorites } />
-          <Route path="/" exact component={this.renderHome} />
+          <Route path='/register' render={ this.renderForm } />
+          <Route path='/login' render={ this.renderForm } />
+          <Route path='/products' render={ this.renderProducts } />
+          <Route path='/favorites' render={ this.renderFavorites } />
+          <Route path='/add' render={ () => <NewProductForm addNewProduct={this.addNewProduct} />} />
+          <Route path='/' exact component={this.renderHome} />
           <Route render={ () => <p>Sorry! Page not Found.</p> } />
         </Switch>
       </div>
