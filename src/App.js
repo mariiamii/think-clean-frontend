@@ -19,11 +19,11 @@ class App extends React.Component {
       products: []
     }
   }
-
+  
   componentDidMount() {
     fetch('http://localhost:3000/products')
-    .then(resp => resp.json())
-    .then(productsData => this.setState({ products: productsData}))
+    .then((resp) => resp.json())
+    .then((productsData) => this.setState({ products: productsData }))
   }
 
   handleLoginSubmit = (userInfo) => {
@@ -35,7 +35,7 @@ class App extends React.Component {
       },
       body: JSON.stringify(userInfo)
     })
-    .then(resp => resp.json())
+    .then((resp) => resp.json())
     .then(this.handleResponse)
   }
 
@@ -48,26 +48,19 @@ class App extends React.Component {
       },
       body: JSON.stringify(userInfo)
     })
-    .then(resp => resp.json())
+    .then((resp) => resp.json())
     .then(this.handleResponse)
   }
 
   handleResponse = (resp) => {
     if (resp.id) {
-      this.setState({
-        user: resp
-      }, () => {
-        this.props.history.push('/')
-      })
+      this.setState({ user: resp }, () => {this.props.history.push('/')})
     } else {
       alert(resp.message)
     }
   }
 
   renderForm = (routerProps) => {
-    // console.log('made it to render form')
-    // console.log(routerProps)
-
     if (routerProps.location.pathname === '/login'){
       return <Form
         formName='Login Form'
@@ -81,20 +74,41 @@ class App extends React.Component {
     }
   }
 
-  renderFavorites = (routerProps) => {
-    return <Favorites user={this.state.user}/>
+  renderHome = (routerProps) => {
+    return <Home 
+      user={this.state.user}
+    />
   }
 
-  renderHome = (routerProps) => {
-    return <Home user={this.state.user}/>
+  renderFavorites = (routerProps) => {
+    return <Favorites 
+      user={this.state.user}
+    />
   }
 
   renderProducts = (routerProps) => {
-    return <AllProducts products={this.state.products}/>
+    return <AllProducts 
+      products={this.filteredProductsArray()} 
+      searchTerm={this.state.searchTerm} 
+      changeSearchTerm={this.changeSearchTerm} 
+    />
   }
 
   addNewProduct = (newProduct) => {
     this.setState({ products: [...this.state.products, newProduct] })
+  }
+
+  changeSearchTerm = (termFromChild) => {this.setState({ searchTerm: termFromChild })}
+
+  filteredProductsArray = () => {
+    let theArrayToReturn = this.state.products.filter((productPojo) => {
+      return (
+        productPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+          ||
+        productPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+        )
+    })
+    return theArrayToReturn
   }
 
   //adding products associated to a user

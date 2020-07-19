@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Product = (props) => {
-  return(
+  return (
     <ul>
       <li>{props.product.brand_name}</li>
       <li>{props.product.product_name}</li>

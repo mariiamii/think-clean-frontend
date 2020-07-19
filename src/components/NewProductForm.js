@@ -10,7 +10,7 @@ class NewProductForm extends React.Component {
     website: ''
   }
 
-  handleChange = event => {this.setState({ [event.target.name]: event.target.value })}
+  handleChange = (event) => {this.setState({ [event.target.name]: event.target.value })}
 
   handleSubmit = (event) => {
     event.preventDefault()
@@ -22,7 +22,7 @@ class NewProductForm extends React.Component {
       },
       body: JSON.stringify(this.state)
     })
-    .then(resp => resp.json())
+    .then((resp) => resp.json())
     // .then(console.log)
     .then((newProduct) => {
       console.log(newProduct)
