@@ -13,6 +13,7 @@ import Category from './components/Category'
 
 class App extends React.Component {
   state = {
+    skincare: [],
     products: [],
     searchTerm: '',
     user: {
@@ -21,12 +22,11 @@ class App extends React.Component {
       username: '',
       products: []
     }
-    ,
-    categories: {
-      id: 0,
-      name: '',
-      products: []
-    }
+    // categories: {
+    //   id: 0,
+    //   name: '',
+    //   products: []
+    // }
   }
   
   componentDidMount() {
@@ -36,9 +36,17 @@ class App extends React.Component {
 
     fetch('http://localhost:3000/categories/1')
     .then((resp) => resp.json())
-    .then((skincareData) => console.log(skincareData, "state before render")
-    // this.setState({ products: skincareData })
-    )
+    .then((skincareData) => this.setState({skincare: skincareData}, function() {
+      console.log(this.state.skincare, "setState")}))
+    // console.log(skincareData, "state before render")
+      // this.setState({ 
+      //   categories: {
+      //     products: skincareData
+      //   }
+      // }, function() {
+      //   console.log(this.state.categories.products, "setState")
+      // })
+    // )
   }
 
   handleLoginSubmit = (userInfo) => {
@@ -105,30 +113,30 @@ class App extends React.Component {
   }
 
   renderProducts = (routerProps) => {
-    if (routerProps.location.pathname === '/products'){
+    // if (routerProps.location.pathname === '/products'){
       return <AllProducts 
         products={this.filteredProductsArray()} 
         searchTerm={this.state.searchTerm} 
         changeSearchTerm={this.changeSearchTerm} 
       />
-    } 
-    // else if (routerProps.location.pathname === '/categories/1') {
+    // } 
+    // else if (routerProps.location.pathname === '/skincare') {
     //   return <Category
-    //     // categories={this.state.categories}
-    //     categories={this.filteredCategoryArray()} 
+    //     products={this.state.skincare}
+    //     products={this.filteredCategoryArray()} 
     //     searchTerm={this.state.searchTerm} 
     //     changeSearchTerm={this.changeSearchTerm} 
-    // />
+    //   />
     // }
   }
 
-  // renderCategory = (routerProps) => {
-  //   return <AllProducts
-  //     products={this.filteredCategoryArray()} 
-  //     searchTerm={this.state.searchTerm} 
-  //     changeSearchTerm={this.changeSearchTerm} 
-  //   />
-  // }
+  renderCategory = (routerProps) => {
+    return <Category
+      products={this.state.skincare} 
+      // searchTerm={this.state.searchTerm} 
+      // changeSearchTerm={this.changeSearchTerm} 
+    />
+  }
 
   addNewProduct = (newProduct) => {
     this.setState({ products: [...this.state.products, newProduct] })
@@ -183,7 +191,7 @@ class App extends React.Component {
   // }
 
   render() {
-    console.log(this.state.categories.products, "state after render")
+    // console.log(this.state.categories.products, "state after render")
     return (
       <div className='App'>
         <NavBar user={this.state.user} />
@@ -191,7 +199,7 @@ class App extends React.Component {
           <Route path='/register' render={ this.renderForm } />
           <Route path='/login' render={ this.renderForm } />
           <Route path='/products' render={ this.renderProducts } />
-          {/* <Route path='/categories/1' render={ this.renderProducts } /> */}
+          <Route path='/skincare' render={ () => <Category skincare={this.state.skincare} /> } />
           {/* <Route path='/categories/1' component={ CategoryWarehouse } /> */}
           <Route path='/favorites' render={ this.renderFavorites } />
           <Route path='/add' render={ () => <NewProductForm addNewProduct={this.addNewProduct} />} />

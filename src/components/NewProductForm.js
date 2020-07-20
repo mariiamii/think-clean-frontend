@@ -6,8 +6,9 @@ class NewProductForm extends React.Component {
     product_name: '',
     description: '',
     image_url: '',
-    // category: 'Skincare',
-    website: ''
+    category: 'Skincare',
+    website: '',
+    category_id: ''
   }
 
   handleChange = (event) => {this.setState({ [event.target.name]: event.target.value })}
@@ -25,18 +26,19 @@ class NewProductForm extends React.Component {
     .then((resp) => resp.json())
     // .then(console.log)
     .then((newProduct) => {
-      console.log(newProduct)
-      // this.props.addNewProduct(newProduct)
-      // this.setState({
-      //   brand_name: '',
-      //   product_name: '',
-      //   description: '',
-      //   image_url: '',
-      //   category: '',
-      //   website: ''
-      // })
+      // console.log(newProduct)
+      this.props.addNewProduct(newProduct)
+      this.setState({
+        brand_name: '',
+        product_name: '',
+        description: '',
+        image_url: '',
+        category_id: '',
+        website: ''
+      })
     })
   }
+  
 
   render() {
     return (
@@ -56,12 +58,12 @@ class NewProductForm extends React.Component {
           <label htmlFor='image'>Image:</label>
           <input type='ulr' autoComplete='off' name='image_url' value={this.state.image_url} onChange={this.handleChange} />
 
-          {/* <label htmlFor='category'>Category:</label>
+          <label htmlFor='category'>Category:</label>
           <select name='category' value={this.state.category} onChange={this.handleChange}>
             <option value='Skincare'>Skincare</option>
             <option value='Makeup'>Makeup</option>
             <option value='Hair'>Hair</option>
-          </select> */}
+          </select>
 
           <label>Website:</label>
           <input type='text' autoComplete='off' name='website' value={this.state.website} onChange={this.handleChange} />

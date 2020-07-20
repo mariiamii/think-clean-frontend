@@ -14,23 +14,28 @@ class CategoryWarehouse extends React.Component {
     componentDidMount() {
         fetch('http://localhost:3000/categories/1')
         .then((resp) => resp.json())
-        .then((skincareData) => console.log(skincareData, "state before render")
-        // this.setState({ products: skincareData })
+        .then((skincareData) => 
+            // console.log(skincareData, "state before render")
+            this.setState({ 
+                categories: {
+                  products: skincareData
+                }
+            })
         )
     }
 
-    // changeSearchTerm = (termFromChild) => {this.setState({ searchTerm: termFromChild })}
+    changeSearchTerm = (termFromChild) => {this.setState({ searchTerm: termFromChild })}
 
-    // filteredCategoryArray = () => {
-    //     let theArrayToReturn = this.state.categories.products.filter((categoryPojo) => {
-    //     return (
-    //         categoryPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
-    //         ||
-    //         categoryPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
-    //         )
-    //     })
-    //     return theArrayToReturn
-    // }
+    filteredCategoryArray = () => {
+        let theArrayToReturn = this.state.categories.products.filter((categoryPojo) => {
+        return (
+            categoryPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+            ||
+            categoryPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+            )
+        })
+        return theArrayToReturn
+    }
 
     render() {
         console.log(this.state.categories.products, "state after render")
