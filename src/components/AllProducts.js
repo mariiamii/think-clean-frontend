@@ -14,8 +14,8 @@ const AllProducts = (props) => {
     <section>
       <div className="search-box">
           <input type="text" value={props.searchTerm} onChange={handleChange}/>
-        </div>
-      <div id="product-collection">
+      </div>
+      <div className="results-container">
         {arrayOfProductComponents}
       </div>
     </section>

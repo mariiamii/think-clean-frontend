@@ -2,21 +2,27 @@ import React from 'react'
 import Product from './Product'
 
 const Favorites = (props) => {
-  let { name, products } = props.user
-
-  let arrayOfFavoritedProducts = products.map((product) => {
+  let arrayOfFavoritedProducts = props.products.map((product) => {
     return <Product key={product.id} product={product} />
   })
 
+  let handleChange = (event) => {
+    props.changeSearchTerm(event.target.value)
+  }
+
   return (
-    <div>
-      <h2>{name}&apos;s Favorites</h2>
+    <section>
+      <h2>{props.user.name}&apos;s Favorites</h2>
 
-      <ol>
+      <div className="search-box">
+          <input type="text" value={props.searchTerm} onChange={handleChange}/>
+      </div>
+
+      <div className="results-container">
         {arrayOfFavoritedProducts}
-      </ol>
+      </div>
 
-    </div>
+    </section>
   )
 }
 

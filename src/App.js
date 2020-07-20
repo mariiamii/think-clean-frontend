@@ -1,12 +1,15 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import {withRouter} from 'react-router-dom'
+import './App.css'
 import Form from './components/Form'
 import NavBar from './components/NavBar'
 import Home from './components/Home'
 import Favorites from './components/Favorites'
 import AllProducts from './components/AllProducts'
 import NewProductForm from './components/NewProductForm'
+import Category from './components/Category'
+// import CategoryWarehouse from './components/CategoryWarehouse'
 
 class App extends React.Component {
   state = {
@@ -18,12 +21,24 @@ class App extends React.Component {
       username: '',
       products: []
     }
+    ,
+    categories: {
+      id: 0,
+      name: '',
+      products: []
+    }
   }
   
   componentDidMount() {
     fetch('http://localhost:3000/products')
     .then((resp) => resp.json())
     .then((productsData) => this.setState({ products: productsData }))
+
+    fetch('http://localhost:3000/categories/1')
+    .then((resp) => resp.json())
+    .then((skincareData) => console.log(skincareData, "state before render")
+    // this.setState({ products: skincareData })
+    )
   }
 
   handleLoginSubmit = (userInfo) => {
@@ -83,16 +98,37 @@ class App extends React.Component {
   renderFavorites = (routerProps) => {
     return <Favorites 
       user={this.state.user}
-    />
-  }
-
-  renderProducts = (routerProps) => {
-    return <AllProducts 
-      products={this.filteredProductsArray()} 
+      products={this.filteredFavoritesArray()}
       searchTerm={this.state.searchTerm} 
       changeSearchTerm={this.changeSearchTerm} 
     />
   }
+
+  renderProducts = (routerProps) => {
+    if (routerProps.location.pathname === '/products'){
+      return <AllProducts 
+        products={this.filteredProductsArray()} 
+        searchTerm={this.state.searchTerm} 
+        changeSearchTerm={this.changeSearchTerm} 
+      />
+    } 
+    // else if (routerProps.location.pathname === '/categories/1') {
+    //   return <Category
+    //     // categories={this.state.categories}
+    //     categories={this.filteredCategoryArray()} 
+    //     searchTerm={this.state.searchTerm} 
+    //     changeSearchTerm={this.changeSearchTerm} 
+    // />
+    // }
+  }
+
+  // renderCategory = (routerProps) => {
+  //   return <AllProducts
+  //     products={this.filteredCategoryArray()} 
+  //     searchTerm={this.state.searchTerm} 
+  //     changeSearchTerm={this.changeSearchTerm} 
+  //   />
+  // }
 
   addNewProduct = (newProduct) => {
     this.setState({ products: [...this.state.products, newProduct] })
@@ -111,6 +147,28 @@ class App extends React.Component {
     return theArrayToReturn
   }
 
+  filteredFavoritesArray = () => {
+    let theArrayToReturn = this.state.user.products.filter((productPojo) => {
+      return (
+        productPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+          ||
+        productPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+        )
+    })
+    return theArrayToReturn
+  }
+
+  // filteredCategoryArray = () => {
+  //   let theArrayToReturn = this.state.categories.products.filter((categoryPojo) => {
+  //     return (
+  //       categoryPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+  //         ||
+  //       categoryPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+  //       )
+  //   })
+  //   return theArrayToReturn
+  // }
+
   //adding products associated to a user
   // addNewProduct = (newProduct) => {
   //   let copyOfUserProducts = [...this.state.user.products, newProduct]
@@ -125,6 +183,7 @@ class App extends React.Component {
   // }
 
   render() {
+    console.log(this.state.categories.products, "state after render")
     return (
       <div className='App'>
         <NavBar user={this.state.user} />
@@ -132,6 +191,8 @@ class App extends React.Component {
           <Route path='/register' render={ this.renderForm } />
           <Route path='/login' render={ this.renderForm } />
           <Route path='/products' render={ this.renderProducts } />
+          {/* <Route path='/categories/1' render={ this.renderProducts } /> */}
+          {/* <Route path='/categories/1' component={ CategoryWarehouse } /> */}
           <Route path='/favorites' render={ this.renderFavorites } />
           <Route path='/add' render={ () => <NewProductForm addNewProduct={this.addNewProduct} />} />
           <Route path='/' exact component={this.renderHome} />
