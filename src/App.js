@@ -9,11 +9,18 @@ import Favorites from './components/Favorites'
 import AllProducts from './components/AllProducts'
 import NewProductForm from './components/NewProductForm'
 import Category from './components/Category'
-// import CategoryWarehouse from './components/CategoryWarehouse'
 
 class App extends React.Component {
   state = {
-    skincare: [],
+    skincare: {
+      products: []
+    },
+    makeup: {
+      products: []
+    },
+    hair: {
+      products: []
+    },
     products: [],
     searchTerm: '',
     user: {
@@ -22,11 +29,6 @@ class App extends React.Component {
       username: '',
       products: []
     }
-    // categories: {
-    //   id: 0,
-    //   name: '',
-    //   products: []
-    // }
   }
   
   componentDidMount() {
@@ -36,17 +38,15 @@ class App extends React.Component {
 
     fetch('http://localhost:3000/categories/1')
     .then((resp) => resp.json())
-    .then((skincareData) => this.setState({skincare: skincareData}, function() {
-      console.log(this.state.skincare, "setState")}))
-    // console.log(skincareData, "state before render")
-      // this.setState({ 
-      //   categories: {
-      //     products: skincareData
-      //   }
-      // }, function() {
-      //   console.log(this.state.categories.products, "setState")
-      // })
-    // )
+    .then((skincareData) => this.setState({ skincare: skincareData }))
+
+    fetch('http://localhost:3000/categories/2')
+    .then((resp) => resp.json())
+    .then((makeupData) => this.setState({ makeup: makeupData }))
+
+    fetch('http://localhost:3000/categories/3')
+    .then((resp) => resp.json())
+    .then((hairData) => this.setState({ hair: hairData }))
   }
 
   handleLoginSubmit = (userInfo) => {
@@ -103,6 +103,30 @@ class App extends React.Component {
     />
   }
 
+  renderSkincare = (routerProps) => {
+    return <Category
+      products={this.filteredSkincareArray()} 
+      searchTerm={this.state.searchTerm} 
+      changeSearchTerm={this.changeSearchTerm} 
+    />
+  }
+
+  renderMakeup = (routerProps) => {
+    return <Category
+      products={this.filteredMakeupArray()} 
+      searchTerm={this.state.searchTerm} 
+      changeSearchTerm={this.changeSearchTerm} 
+    />
+  }
+
+  renderHair = (routerProps) => {
+    return <Category
+      products={this.filteredHairArray()} 
+      searchTerm={this.state.searchTerm} 
+      changeSearchTerm={this.changeSearchTerm} 
+    />
+  }
+
   renderFavorites = (routerProps) => {
     return <Favorites 
       user={this.state.user}
@@ -113,28 +137,10 @@ class App extends React.Component {
   }
 
   renderProducts = (routerProps) => {
-    // if (routerProps.location.pathname === '/products'){
-      return <AllProducts 
-        products={this.filteredProductsArray()} 
-        searchTerm={this.state.searchTerm} 
-        changeSearchTerm={this.changeSearchTerm} 
-      />
-    // } 
-    // else if (routerProps.location.pathname === '/skincare') {
-    //   return <Category
-    //     products={this.state.skincare}
-    //     products={this.filteredCategoryArray()} 
-    //     searchTerm={this.state.searchTerm} 
-    //     changeSearchTerm={this.changeSearchTerm} 
-    //   />
-    // }
-  }
-
-  renderCategory = (routerProps) => {
-    return <Category
-      products={this.state.skincare} 
-      // searchTerm={this.state.searchTerm} 
-      // changeSearchTerm={this.changeSearchTerm} 
+    return <AllProducts 
+      products={this.filteredProductsArray()} 
+      searchTerm={this.state.searchTerm} 
+      changeSearchTerm={this.changeSearchTerm} 
     />
   }
 
@@ -166,32 +172,40 @@ class App extends React.Component {
     return theArrayToReturn
   }
 
-  // filteredCategoryArray = () => {
-  //   let theArrayToReturn = this.state.categories.products.filter((categoryPojo) => {
-  //     return (
-  //       categoryPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
-  //         ||
-  //       categoryPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
-  //       )
-  //   })
-  //   return theArrayToReturn
-  // }
+  filteredSkincareArray = () => {
+    let theArrayToReturn = this.state.skincare.products.filter((categoryPojo) => {
+      return (
+        categoryPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+          ||
+        categoryPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+        )
+    })
+    return theArrayToReturn
+  }
 
-  //adding products associated to a user
-  // addNewProduct = (newProduct) => {
-  //   let copyOfUserProducts = [...this.state.user.products, newProduct]
-  //   let copyOfUser = {
-  //     ...this.state.user,
-  //     products: copyOfUserProducts
-  //   }
+  filteredMakeupArray = () => {
+    let theArrayToReturn = this.state.makeup.products.filter((categoryPojo) => {
+      return (
+        categoryPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+          ||
+        categoryPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+        )
+    })
+    return theArrayToReturn
+  }
 
-  //   this.setState({
-  //     user: copyOfUser
-  //   })
-  // }
-
+  filteredHairArray = () => {
+    let theArrayToReturn = this.state.hair.products.filter((categoryPojo) => {
+      return (
+        categoryPojo.brand_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+          ||
+        categoryPojo.product_name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+        )
+    })
+    return theArrayToReturn
+  }
+  
   render() {
-    // console.log(this.state.categories.products, "state after render")
     return (
       <div className='App'>
         <NavBar user={this.state.user} />
@@ -199,8 +213,9 @@ class App extends React.Component {
           <Route path='/register' render={ this.renderForm } />
           <Route path='/login' render={ this.renderForm } />
           <Route path='/products' render={ this.renderProducts } />
-          <Route path='/skincare' render={ () => <Category skincare={this.state.skincare} /> } />
-          {/* <Route path='/categories/1' component={ CategoryWarehouse } /> */}
+          <Route path='/skincare' render={ this.renderSkincare }/>
+          <Route path='/makeup' render={ this.renderMakeup }/>
+          <Route path='/hair' render={ this.renderHair }/>
           <Route path='/favorites' render={ this.renderFavorites } />
           <Route path='/add' render={ () => <NewProductForm addNewProduct={this.addNewProduct} />} />
           <Route path='/' exact component={this.renderHome} />
@@ -212,3 +227,16 @@ class App extends React.Component {
 }
 
 export default withRouter(App)
+
+//adding products associated to a user
+// addNewProduct = (newProduct) => {
+//   let copyOfUserProducts = [...this.state.user.products, newProduct]
+//   let copyOfUser = {
+//     ...this.state.user,
+//     products: copyOfUserProducts
+//   }
+
+//   this.setState({
+//     user: copyOfUser
+//   })
+// }

@@ -2,15 +2,7 @@ import React from 'react'
 import Product from './Product'
 
 const Category = (props) => {
-    // console.log(props.products, "category prop")
-    
-    // let { products } = props.categories
-
-    // let array = Array.from(props.products)
-    // console.log(array)
-    // console.log(props.products.products)
-
-    let arrayOfCategoryProductComponents = props.skincare.products.map((product) => {
+    let arrayOfCategoryProductComponents = props.products.map((product) => {
         return <Product key={product.id} product={product} />
     })
 

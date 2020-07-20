@@ -11,7 +11,6 @@ class Product extends React.Component {
   
   renderFront = () => {
     const { image_url, brand_name, product_name } = this.props.product
-   
     return (
         <>
           <img className="card-img" src={image_url} alt={product_name} />
@@ -24,7 +23,6 @@ class Product extends React.Component {
 
   renderBack = () => {
     const { description, website } = this.props.product
-
     return (
       <>
         <div className="card-back-text">{description}</div>
@@ -32,22 +30,6 @@ class Product extends React.Component {
       </>
     )
   }
-
-  // handleLike = (event) => {
-  //   let updatedLikes = this.props.toy.likes + 1
-
-  //   fetch(`http://localhost:3000/products/${this.props.toy.id}`, {
-  //     method: 'PATCH',
-  //     headers: {
-  //       'content-type': 'application/json'
-  //     },
-  //     body: JSON.stringify({likes: updatedLikes})
-  //   })
-  //   .then(resp => resp.json())
-  //   .then(updatedToy => {
-  //     this.props.updateToyInArr(updatedToy)
-  //   })
-  // }
 
   render() {
     const { details } = this.state
@@ -58,6 +40,8 @@ class Product extends React.Component {
     )
   }
 }
+
+export default Product
 
 // const Product = (props) => {
 //   return (
@@ -70,5 +54,3 @@ class Product extends React.Component {
 //     </ul>
 //   )
 // }
-
-export default Product
