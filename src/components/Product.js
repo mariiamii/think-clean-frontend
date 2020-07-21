@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import ClickedProduct from './ClickedProduct'
+import ClickedProduct from './ClickedProduct'
 
 class Product extends React.Component {
   state = {

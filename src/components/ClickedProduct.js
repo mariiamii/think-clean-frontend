@@ -16,6 +16,23 @@ class ClickedProduct extends React.Component {
         })
     }
 
+    handleClick = () => {
+        fetch('http://localhost:3000/favorites', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: 1,
+                product_id: this.props.routerProps.match.params.id
+            })
+        })
+        .then(resp => resp.json())
+        .then((favoritedItem) => {
+            console.log(favoritedItem)
+        })
+    }
+
     render() {
         return(
             <div>
@@ -24,6 +41,7 @@ class ClickedProduct extends React.Component {
                {this.state.productInfo.website}
                
                <a href={this.state.productInfo.website} target="_blank"><button>Go to website</button></a>
+               <button onClick={this.handleClick} >Add to your Favorites</button>
             </div>
         )
     }

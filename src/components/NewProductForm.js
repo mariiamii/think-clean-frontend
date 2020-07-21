@@ -11,6 +11,19 @@ class NewProductForm extends React.Component {
     category_id: ''
   }
 
+  handleCategoryChange = (event) => {
+    if (event.target.value === "Skincare") {
+      this.setState({category_id: 1})
+      this.setState({category: event.target.value})
+    } else if (event.target.value === "Makeup") {
+      this.setState({category_id: 2})
+      this.setState({category: event.target.value})
+    } else if (event.target.value === "Hair") {
+      this.setState({category_id: 3})
+      this.setState({category: event.target.value})
+    }
+  }
+
   handleChange = (event) => {this.setState({ [event.target.name]: event.target.value })}
 
   handleSubmit = (event) => {
@@ -26,15 +39,15 @@ class NewProductForm extends React.Component {
     .then((resp) => resp.json())
     .then((newProduct) => {
       console.log(newProduct)
-      // this.props.addNewProduct(newProduct)
-      // this.setState({
-      //   brand_name: '',
-      //   product_name: '',
-      //   description: '',
-      //   image_url: '',
-      //   category_id: '',
-      //   website: ''
-      // })
+      this.props.addNewProduct(newProduct)
+      this.setState({
+        brand_name: '',
+        product_name: '',
+        description: '',
+        image_url: '',
+        category_id: '',
+        website: ''
+      })
     })
   }
 
@@ -57,7 +70,7 @@ class NewProductForm extends React.Component {
           <input type='ulr' autoComplete='off' name='image_url' value={this.state.image_url} onChange={this.handleChange} />
 
           <label htmlFor='category'>Category:</label>
-          <select name='category' value={this.state.category} onChange={this.handleChange}>
+          <select name='category' value={this.state.category} onChange={this.handleCategoryChange}>
             <option value='Skincare'>Skincare</option>
             <option value='Makeup'>Makeup</option>
             <option value='Hair'>Hair</option>
@@ -75,3 +88,15 @@ class NewProductForm extends React.Component {
 }
 
 export default NewProductForm
+
+/*
+1) easier
+- backend, btwn line 14-15, products controller: 
+params[:category]
+Category.find_by
+Product.create(product_params, category: category)
+
+2) harder
+- fetch to get categories and render all the options (id 1 = skincare, id 2 = makeup)
+- map over all those options
+*/
