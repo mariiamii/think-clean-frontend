@@ -9,6 +9,7 @@ import Favorites from './components/Favorites'
 import AllProducts from './components/AllProducts'
 import NewProductForm from './components/NewProductForm'
 import Category from './components/Category'
+import ClickedProduct from './components/ClickedProduct'
 
 class App extends React.Component {
   state = {
@@ -213,6 +214,7 @@ class App extends React.Component {
           <Route path='/register' render={ this.renderForm } />
           <Route path='/login' render={ this.renderForm } />
           <Route path='/products' render={ this.renderProducts } />
+          <Route path='/product/:id' render={(routerProps)=> <ClickedProduct routerProps={routerProps} />} />
           <Route path='/skincare' render={ this.renderSkincare }/>
           <Route path='/makeup' render={ this.renderMakeup }/>
           <Route path='/hair' render={ this.renderHair }/>

@@ -24,21 +24,19 @@ class NewProductForm extends React.Component {
       body: JSON.stringify(this.state)
     })
     .then((resp) => resp.json())
-    // .then(console.log)
     .then((newProduct) => {
-      // console.log(newProduct)
-      this.props.addNewProduct(newProduct)
-      this.setState({
-        brand_name: '',
-        product_name: '',
-        description: '',
-        image_url: '',
-        category_id: '',
-        website: ''
-      })
+      console.log(newProduct)
+      // this.props.addNewProduct(newProduct)
+      // this.setState({
+      //   brand_name: '',
+      //   product_name: '',
+      //   description: '',
+      //   image_url: '',
+      //   category_id: '',
+      //   website: ''
+      // })
     })
   }
-  
 
   render() {
     return (
