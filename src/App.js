@@ -104,6 +104,23 @@ class App extends React.Component {
     />
   }
 
+  renderProducts = (routerProps) => {
+    return <AllProducts 
+    products={this.filteredProductsArray()} 
+    searchTerm={this.state.searchTerm} 
+    changeSearchTerm={this.changeSearchTerm} 
+    />
+  }
+  
+  renderFavorites = (routerProps) => {
+    return <Favorites 
+      user={this.state.user}
+      products={this.filteredFavoritesArray()}
+      searchTerm={this.state.searchTerm} 
+      changeSearchTerm={this.changeSearchTerm} 
+    />
+  }
+
   renderSkincare = (routerProps) => {
     return <Category
       products={this.filteredSkincareArray()} 
@@ -127,26 +144,9 @@ class App extends React.Component {
       changeSearchTerm={this.changeSearchTerm} 
     />
   }
-
-  renderFavorites = (routerProps) => {
-    return <Favorites 
-      user={this.state.user}
-      products={this.filteredFavoritesArray()}
-      searchTerm={this.state.searchTerm} 
-      changeSearchTerm={this.changeSearchTerm} 
-    />
-  }
-
-  renderProducts = (routerProps) => {
-    return <AllProducts 
-      products={this.filteredProductsArray()} 
-      searchTerm={this.state.searchTerm} 
-      changeSearchTerm={this.changeSearchTerm} 
-    />
-  }
-
+  
   addNewProduct = (newProduct) => {
-    this.setState({ products: [...this.state.products, newProduct] })
+    this.setState({ products: [...this.state.user.products, newProduct] })
   }
 
   changeSearchTerm = (termFromChild) => {this.setState({ searchTerm: termFromChild })}
@@ -214,7 +214,7 @@ class App extends React.Component {
           <Route path='/register' render={ this.renderForm } />
           <Route path='/login' render={ this.renderForm } />
           <Route path='/products' render={ this.renderProducts } />
-          <Route path='/product/:id' render={(routerProps)=> <ClickedProduct routerProps={routerProps} />} />
+          <Route path='/product/:id' render={(routerProps)=> <ClickedProduct routerProps={routerProps} addNewProduct={this.addNewProduct} />} />
           <Route path='/skincare' render={ this.renderSkincare }/>
           <Route path='/makeup' render={ this.renderMakeup }/>
           <Route path='/hair' render={ this.renderHair }/>
@@ -229,16 +229,3 @@ class App extends React.Component {
 }
 
 export default withRouter(App)
-
-//adding products associated to a user
-// addNewProduct = (newProduct) => {
-//   let copyOfUserProducts = [...this.state.user.products, newProduct]
-//   let copyOfUser = {
-//     ...this.state.user,
-//     products: copyOfUserProducts
-//   }
-
-//   this.setState({
-//     user: copyOfUser
-//   })
-// }

@@ -19,8 +19,8 @@ class Form extends React.Component {
   }
 
   render() {
-    let { formName } = this.props
-    let { name, username, password } = this.state
+    const { formName } = this.props
+    const { name, username, password } = this.state
 
     return (
       <form onSubmit={this.handleSubmit}>

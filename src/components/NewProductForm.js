@@ -88,15 +88,3 @@ class NewProductForm extends React.Component {
 }
 
 export default NewProductForm
-
-/*
-1) easier
-- backend, btwn line 14-15, products controller: 
-params[:category]
-Category.find_by
-Product.create(product_params, category: category)
-
-2) harder
-- fetch to get categories and render all the options (id 1 = skincare, id 2 = makeup)
-- map over all those options
-*/

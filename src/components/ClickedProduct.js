@@ -16,7 +16,7 @@ class ClickedProduct extends React.Component {
         })
     }
 
-    handleClick = () => {
+    handleFavorite = () => {
         fetch('http://localhost:3000/favorites', {
             method: "POST",
             headers: {
@@ -28,20 +28,26 @@ class ClickedProduct extends React.Component {
             })
         })
         .then(resp => resp.json())
-        .then((favoritedItem) => {
-            console.log(favoritedItem)
+        // .then((favoritedItem) => {
+        //     console.log(favoritedItem)
+        // })
+        .then(newProduct => {
+            this.props.addNewProduct(newProduct)
         })
     }
 
     render() {
+        const { brand_name, product_name, description, website} = this.state.productInfo
+        
         return(
             <div>
-               {this.state.productInfo.brand_name}
-               {this.state.productInfo.description}
-               {this.state.productInfo.website}
-               
-               <a href={this.state.productInfo.website} target="_blank"><button>Go to website</button></a>
-               <button onClick={this.handleClick} >Add to your Favorites</button>
+               <h2>{brand_name}</h2>
+               <h4>{product_name}</h4>
+               <img src={this.state.productInfo.image_url} alt={product_name} />
+               <p>{description}</p>
+               <br />
+               <a href={website} target="_blank"><button>Go to website</button></a>
+               <button onClick={this.handleFavorite}>Favorite</button>
             </div>
         )
     }

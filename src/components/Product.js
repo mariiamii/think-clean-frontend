@@ -12,7 +12,7 @@ class Product extends React.Component {
   }
 
   render() {
-    let { id, brand_name, product_name, image_url } = this.props.product
+    const { id, brand_name, product_name, image_url } = this.props.product
 
     return (
       <div>
