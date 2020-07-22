@@ -17,7 +17,7 @@ class Product extends React.Component {
     return (
       <div>
         <Link to={`/product/${id}`} onClick={this.handleClick}>
-          <img src={image_url} alt={product_name} />
+          <img className="card-img" src={image_url} alt={product_name} />
         </Link>
         <h3>{brand_name}</h3>
         <h4>{product_name}</h4>
