@@ -31,24 +31,45 @@ class App extends React.Component {
       products: []
     }
   }
-  
+
   componentDidMount() {
-    fetch('http://localhost:3000/products')
-    .then((resp) => resp.json())
-    .then((productsData) => this.setState({ products: productsData }))
-
-    fetch('http://localhost:3000/categories/1')
-    .then((resp) => resp.json())
-    .then((skincareData) => this.setState({ skincare: skincareData }))
-
-    fetch('http://localhost:3000/categories/2')
-    .then((resp) => resp.json())
-    .then((makeupData) => this.setState({ makeup: makeupData }))
-
-    fetch('http://localhost:3000/categories/3')
-    .then((resp) => resp.json())
-    .then((hairData) => this.setState({ hair: hairData }))
+    Promise.all([
+      fetch('http://localhost:3000/products'),
+      fetch('http://localhost:3000/categories/1'),
+      fetch('http://localhost:3000/categories/2'),
+      fetch('http://localhost:3000/categories/3'),
+    ])
+    .then(([resp1, resp2, resp3, resp4]) => Promise.all([
+      resp1.json(), 
+      resp2.json(), 
+      resp3.json(), 
+      resp4.json()
+    ]))
+    .then(([data1, data2, data3, data4]) => this.setState({
+      products: data1,
+      skincare: data2,
+      makeup: data3,
+      hair: data4
+    })) 
   }
+  
+  // componentDidMount() {
+  //   fetch('http://localhost:3000/products')
+  //   .then((resp) => resp.json())
+  //   .then((productsData) => this.setState({ products: productsData }))
+
+  //   fetch('http://localhost:3000/categories/1')
+  //   .then((resp) => resp.json())
+  //   .then((skincareData) => this.setState({ skincare: skincareData }))
+
+  //   fetch('http://localhost:3000/categories/2')
+  //   .then((resp) => resp.json())
+  //   .then((makeupData) => this.setState({ makeup: makeupData }))
+
+  //   fetch('http://localhost:3000/categories/3')
+  //   .then((resp) => resp.json())
+  //   .then((hairData) => this.setState({ hair: hairData }))
+  // }
 
   handleLoginSubmit = (userInfo) => {
     console.log('Login form has been submitted')
