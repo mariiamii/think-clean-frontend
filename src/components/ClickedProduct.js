@@ -28,11 +28,8 @@ class ClickedProduct extends React.Component {
             })
         })
         .then(resp => resp.json())
-        // .then((favoritedItem) => {
-        //     console.log(favoritedItem)
-        // })
-        .then(newProduct => {
-            this.props.addNewProduct(newProduct)
+        .then((favoritedItem) => {
+            this.props.addFavoritedProduct(favoritedItem)
         })
     }
 

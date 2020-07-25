@@ -1,14 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import ClickedProduct from './ClickedProduct'
 
 class Product extends React.Component {
   state = {
-    currentProduct: []
+    current_product: []
   }
 
   handleClick = () => {
-    this.setState({ currentProduct: this.props.product.id })
+    this.setState({ current_product: this.props.product.id })
   }
 
   render() {
