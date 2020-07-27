@@ -61,3 +61,23 @@
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
+/* form {
+  text-align: center;
+}
+
+.form-label {
+  line-height: 200px;
+}
+
+.form-label, .form-input {
+  display: block;
+  margin: auto;
+  
+}
+
+.form-input[type="submit"] {
+  width: 10rem;
+  margin-top: 25rem;
+  height: 1.5rem;
+} */

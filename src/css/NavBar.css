@@ -1,0 +1,24 @@
+.nav-ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    /* background-color: #dddddd; */
+    /* display: inline-block;
+    list-style-type: none; */
+}
+
+.nav-div {
+    display: inline-block;
+    list-style-type: none;
+}
+
+.nav-li {
+    float: left;
+    border-right: 1px solid #bbb;
+}
+
+.navlink {
+    display: block;
+    padding: 8px;
+    /* background-color: #dddddd; */
+}

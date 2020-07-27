@@ -1,11 +1,18 @@
 import React from 'react'
-// import NewProductForm from './NewProductForm'
+import '../css/Home.css'
 
 const Home = (props) => {
+  const image = require('../images/bg-2.jpg');
+  const divStyle = {
+    width: '100%',
+    height: '1100px',
+    backgroundImage: `url(${image})`,
+    backgroundSize: 'cover'
+  }
+
   return(
-      <div>
-          <h1 id='header'>Think Clean</h1>
-          <img src='https://cdn-a.william-reed.com/var/wrbm_gb_food_pharma/storage/images/publications/cosmetics/cosmeticsdesign.com/headlines/market-trends/4-recent-highlights-from-the-clean-beauty-movement/11448612-1-eng-GB/4-recent-highlights-from-the-Clean-Beauty-movement_wrbm_large.jpg' alt='clean-beauty' />
+    <div className='bg' style={divStyle}>
+      <h1 className='header' align='center'>Think Clean</h1>
     </div>  
   )
 }
