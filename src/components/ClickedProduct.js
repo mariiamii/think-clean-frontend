@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/ClickedProduct.css'
 
 class ClickedProduct extends React.Component {
     state = {
@@ -28,9 +29,12 @@ class ClickedProduct extends React.Component {
             })
         })
         .then(resp => resp.json())
-        .then((favoritedItem) => {
-            this.props.addFavoritedProduct(favoritedItem)
-        })
+        .then((favoritedItem) => 
+        console.log(favoritedItem, "favorited item")
+        // {
+        //     this.props.addFavoritedProduct(favoritedItem)
+        // }
+        )
     }
 
     render() {
@@ -40,7 +44,7 @@ class ClickedProduct extends React.Component {
             <div>
                <h2>{brand_name}</h2>
                <h4>{product_name}</h4>
-               <img src={this.state.productInfo.image_url} alt={product_name} />
+               <img className='product-image'src={this.state.productInfo.image_url} alt={product_name} />
                <p>{description}</p>
                <br />
                <a href={website} target="_blank"><button>Go to website</button></a>

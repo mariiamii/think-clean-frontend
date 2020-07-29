@@ -2,9 +2,6 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    /* background-color: #dddddd; */
-    /* display: inline-block;
-    list-style-type: none; */
 }
 
 .nav-div {
@@ -15,10 +12,10 @@
 .nav-li {
     float: left;
     border-right: 1px solid #bbb;
+    font-size: 20px;
 }
 
 .navlink {
     display: block;
     padding: 8px;
-    /* background-color: #dddddd; */
 }

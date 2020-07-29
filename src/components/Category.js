@@ -1,5 +1,6 @@
 import React from 'react'
 import Product from './Product'
+import '../css/Category.css'
 
 const Category = (props) => {
     let arrayOfCategoryProductComponents = props.products.map((product) => {
@@ -11,11 +12,11 @@ const Category = (props) => {
     }
 
     return (
-        <section>
+        <section className='section'>
             <div className="search-box">
                 <input type="text" value={props.searchTerm} onChange={handleChange}/>
             </div>
-            <div id="product-collection">
+            <div className="category-container">
                 {arrayOfCategoryProductComponents}
             </div>
         </section>
