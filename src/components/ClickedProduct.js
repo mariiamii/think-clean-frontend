@@ -42,13 +42,13 @@ class ClickedProduct extends React.Component {
         
         return(
             <div>
-               <h2>{brand_name}</h2>
-               <h4>{product_name}</h4>
+               <h2 className='brand-name'>{brand_name}</h2>
+               <h4 className='product-name'>{product_name}</h4>
                <img className='product-image'src={this.state.productInfo.image_url} alt={product_name} />
-               <p>{description}</p>
+               <p className='description'>{description}</p>
                <br />
-               <a href={website} target="_blank"><button>Go to website</button></a>
-               <button onClick={this.handleFavorite}>Favorite</button>
+               <a href={website} target="_blank"><button className='website-btn'>Go to website</button></a>
+               <button className='fav-btn' onClick={this.handleFavorite}>Favorite</button>
             </div>
         )
     }

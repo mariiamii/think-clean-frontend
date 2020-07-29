@@ -14,7 +14,7 @@ const AllProducts = (props) => {
   return (
     <section className='section'>
       <div className="search-box">
-          <input type="text" value={props.searchTerm} onChange={handleChange}/>
+          <input className='products-input' type="text" placeholder='Filter by brand or product name...' value={props.searchTerm} onChange={handleChange}/>
       </div>
       <div className="results-container">
         {arrayOfProductComponents}

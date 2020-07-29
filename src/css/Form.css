@@ -8,3 +8,18 @@
     /* margin-left: auto;
     margin-right: auto; */
 }
+
+@font-face{
+    font-family: 'Michroma', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=KoHo:ital@1&display=swap')
+}
+
+.form-label {
+    font-size: 20px;
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+    font-family: 'Michroma', sans-serif;
+}
+
+/* .form-input {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+} */

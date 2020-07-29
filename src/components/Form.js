@@ -34,7 +34,7 @@ class Form extends React.Component {
     return (
       <form className="form" style={divStyle} onSubmit={this.handleSubmit}>
         <h1 className='header'>{formName}</h1>
-
+        
         <label className='form-label' htmlFor='full-name'>Full Name: </label>
         <input className='form-input' type='text' autoComplete='off' name='name' value={name} onChange={this.handleChange}/>
 

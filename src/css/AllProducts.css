@@ -4,3 +4,13 @@
     grid-column-gap: 20px;
     grid-template-columns: auto auto auto   
 }
+
+.products-input[type=text] {
+    width: 200px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+.products-input[type=text]:focus {
+    width: 15%;
+}

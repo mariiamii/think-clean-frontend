@@ -14,7 +14,7 @@ const Category = (props) => {
     return (
         <section className='section'>
             <div className="search-box">
-                <input type="text" value={props.searchTerm} onChange={handleChange}/>
+                <input className='products-input' placeholder='Filter by brand or product name...' type="text" value={props.searchTerm} onChange={handleChange}/>
             </div>
             <div className="category-container">
                 {arrayOfCategoryProductComponents}
