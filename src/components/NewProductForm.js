@@ -1,4 +1,5 @@
 import React from 'react'
+import '../css/NewProductForm.css'
 
 class NewProductForm extends React.Component {
   state = {
@@ -53,33 +54,33 @@ class NewProductForm extends React.Component {
 
   render() {
     return (
-      <section>
+      <section className='new-container'>
         <h2>Submit a clean product for review.</h2>
-        <form onSubmit={this.handleSubmit}>
+        <form className='new-form-con' onSubmit={this.handleSubmit}>
 
-          <label htmlFor='brand-name'>Brand Name:</label>
-          <input type='text' autoComplete='off' name='brand_name' value={this.state.brand_name} onChange={this.handleChange} />
+          <label className='new-label' htmlFor='brand-name'>Brand Name:</label>
+          <input className='new-input' type='text' autoComplete='off' name='brand_name' value={this.state.brand_name} onChange={this.handleChange} />
 
-          <label htmlFor='product-name'>Product Name:</label>
-          <input type='text' autoComplete='off' name='product_name' value={this.state.product_name} onChange={this.handleChange} />
+          <label className='new-label' htmlFor='product-name'>Product Name:</label>
+          <input className='new-input' type='text' autoComplete='off' name='product_name' value={this.state.product_name} onChange={this.handleChange} />
 
-          <label htmlFor='description'>Description:</label>
-          <input type='text' autoComplete='off' name='description' value={this.state.description} onChange={this.handleChange} />
+          <label className='new-label' htmlFor='description'>Description:</label>
+          <input className='new-input' type='text' autoComplete='off' name='description' value={this.state.description} onChange={this.handleChange} />
 
-          <label htmlFor='image'>Image:</label>
-          <input type='ulr' autoComplete='off' name='image_url' value={this.state.image_url} onChange={this.handleChange} />
+          <label className='new-label' htmlFor='image'>Image:</label>
+          <input className='new-input' type='text' autoComplete='off' name='image_url' value={this.state.image_url} onChange={this.handleChange} />
 
-          <label htmlFor='category'>Category:</label>
+          <label className='new-label' htmlFor='category'>Category:</label>
           <select name='category' value={this.state.category} onChange={this.handleCategoryChange}>
-            <option value='Skincare'>Skincare</option>
-            <option value='Makeup'>Makeup</option>
-            <option value='Hair'>Hair</option>
+            <option className='new-option' value='Skincare'>Skincare</option>
+            <option className='new-option' value='Makeup'>Makeup</option>
+            <option className='new-option' value='Hair'>Hair</option>
           </select>
 
-          <label>Website:</label>
-          <input type='text' autoComplete='off' name='website' value={this.state.website} onChange={this.handleChange} />
+          <label className='new-label'>Website:</label>
+          <input className='new-input' type='text' autoComplete='off' name='website' value={this.state.website} onChange={this.handleChange} />
 
-          <input type='submit' value='Create New Product' />
+          <input className='new-input' type='submit' value='Create New Product' />
 
         </form>
       </section>
